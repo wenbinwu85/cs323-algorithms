@@ -1,0 +1,231 @@
+<html>
+
+<title>
+CS 323/700 Assignment 1
+</title>
+
+<body>
+
+<center>
+<h3>
+CS 323/700 &nbsp;&nbsp; Spring 2019
+<br>
+Homework Assignment #1
+<br>
+Due: 02/22/19, Friday, 11:00 PM
+</h3>
+</center>
+Observe
+<a href="CoursePolicies.html">course policies</a>
+in solving assignment problems.
+
+<br><br>
+
+This is a programming assignment to conduct experimentation on hash tables.
+The program must be written in Oracle Standard Edition compliant Java or ISO/ANSI standard compliant C++.
+
+<br><br>
+
+<b>Part 1</b> &nbsp;
+Implement the following linear congruential pseudo-random number generator:
+
+<blockquote>
+x<sub>n+1</sub> = (a&middot;x<sub>n</sub>) mod M
+</blockquote>
+
+where a = 7<sup>5</sup> = 16807 and M = 2<sup>31</sup> &minus; 1 = 2147483647.
+The seed value x<sub>0</sub> is determined appropriately.
+Write a function "pseudoRandom(&thinsp;)" that returns x<sub>n+1</sub> from x<sub>n</sub>.
+Use 64-bit integer type for the variables and constants
+(<i>long</i> type in Java, <i>long long</i> type in C++).
+Despite its simplicity,
+it is known to generate good pseudo-random numbers for many purposes, including this assignment.
+
+<br><br>
+
+The program will have to compute the mean (average) as well as the <i>standard deviation</i> of data values.
+Let x<sub>1</sub>, &hellip;, x<sub>n</sub> be data values.
+The mean (average) of the x<sub>i</sub> is 
+&mu; = (&Sigma;<sub>1&thinsp;&le;&thinsp;i&thinsp;&le;&thinsp;n</sub>x<sub>i</sub>)/n.
+The standard deviation is 
+s = [(&Sigma;<sub>1&thinsp;&le;&thinsp;i&thinsp;&le;&thinsp;n</sub>(x<sub>i</sub>&minus;&mu;)<sup>2</sup>)/(n&minus;1)]<sup>1/2</sup>.
+The standard deviation is a fundamental statistical quantity that measures the degree of dispersion of data values.
+The larger the standard deviation is,
+the more dispersed the data values are.
+A basic law of standard deviation tells us that there should be a large concentration of values in
+the range [&mu;&minus;s, &mu;+s].
+
+<br><br>
+
+In the following,
+m is the array size,
+n is the # of key values inserted into the table, and
+f(k, m) = &lfloor;m(fractional part of kA)&rfloor; = &lfloor;m(kA mod 1)&rfloor;,
+A = (&radic;5 &minus; 1)/2 &asymp; 0.6180339887498949.
+
+<br><br>
+
+Write a program that performs the following experiments and displays the required statistical data legibly
+on the screen.
+Use 64-bit double type for floating-point numbers.
+
+<br><br>
+
+<b>Part 2</b> &nbsp;
+This part is experimentation on chaining method.
+Set the array size m to 1000003, which is a prime number.
+
+<ol type=a>
+<li>
+Using the above random number generator,
+generate n integer key values starting from the seed value x<sub>0</sub> = 98760053,
+and insert them into the hash table using the hash function:
+
+<blockquote>
+h(k) = k mod m, where k is the generated key value
+</blockquote>
+
+Then compute and display the following data:
+<br><br>
+<ul>
+<li>
+distribution of bucket sizes in terms of
+bucket size, # of buckets of this size, (# of buckets of this size)/(total # of buckets),
+listed in increasing order of bucket size 
+<li>
+load factor &alpha; = n/m
+<li>
+standard deviation of bucket sizes from load factor
+(load factor is the mean value in this case)
+</ul>
+<br>
+Repeat this experiment for n = 800000, 1000000, 2000000, 3000000,
+each of the four starting from the same seed value 98760053.
+
+<br><br>
+<a href="hash_out1.txt">sample output for n = 2000000</a>
+<br><br>
+<li>
+Repeat the experiments in part (a) using the hash function:
+
+<blockquote>
+h(k) = f(k, m)
+</blockquote>
+
+<a href="hash_out2.txt">sample output for n = 2000000</a>
+</ol>
+
+<b>Part 3</b> &nbsp;
+This part is experimentation on open addressing.
+A <i>cluster</i> is a maximal contiguous sequence of occupied positions,
+an <i>empty cluster</i> is a maximal contiguous sequence of unoccupied positions.
+As discussed in class,
+linear probing suffers from primary clustering &ndash; generation of long clusters.
+Quadratic probing improves linear probing by eliminating primary clustering but still generates
+milder secondary clustering.
+Double hashing improves quadratic probing by eliminating secondary clustering.
+Experimental results should confirm this.
+
+<br><br>
+
+Set the array size m to 2<sup>20</sup> = 1048576.
+
+<ol type=a>
+<li>
+Using the above random number generator,
+generate n key values starting from the seed value x<sub>0</sub> = 98760053,
+and insert them into the hash table using the linear probing sequence:
+
+<blockquote>
+h(k, i) = (h'(k) + i) mod m,
+<br>
+h'(k) = f(k, m)
+</blockquote>
+
+Then compute and display the following data:
+<br><br>
+<ul>
+<li>
+load factor &alpha; = n/m
+<li>
+average # of probes performed by insertion procedure
+<li>
+distribution of clusters in terms of
+cluster size, # of clusters of this size, (# of clusters of this size)/(total # of clusters),
+listed in increasing order of cluster size
+<li>
+total # of clusters
+<li>
+average cluster size
+<li>
+standard deviation of cluster sizes
+<li>
+distribution of empty clusters in term of
+empty cluster size, # of empty clusters of this size, (# of empty clusters of this size)/(total # of empty clusters),
+listed in increasing order of empty cluster size
+<li>
+total # of empty clusters
+<li>
+average empty cluster size
+<li>
+standard deviation of empty cluster sizes
+</ul>
+<br>
+Repeat this experiment for n = 500000, 800000, 1000000, 1048576&minus;1=1048575,
+each of the four starting from the same seed value 98760053.
+<br><br>
+<a href="hash_out3.txt">sample output for n = 800000</a>
+<br><br>
+<li>
+Repeat the experiments in part (a) using the quadratic probing sequence:
+
+<blockquote>
+h(k, i) = (h'(k) + i(i+1)/2) mod m,
+<br>
+h'(k) = f(k, m)
+</blockquote>
+
+<a href="hash_out4.txt">sample output for n = 800000</a>
+<br><br>
+<li>
+Repeat the experiments in part (a) using the double-hashing probing sequence:
+
+<blockquote>
+h(k, i) = (h<sub>1</sub>(k) + i h<sub>2</sub>(k)) mod m,
+<br>
+h<sub>1</sub>(k) = f(k, m),
+<br>
+h<sub>2</sub>(k) = k mod m if k mod m is odd, (k mod m)+1 if k mod m is even
+</blockquote>
+
+<a href="hash_out5.txt">sample output for n = 800000</a>
+</ol>
+
+You should conduct experiments using different seed values.
+Optionally you might also conduct experiments using other pseudo-random number generators, e.g.,
+ones available in Java/C++ libraries.
+As far as the elementary statistical data collected in this assignment are concerned,
+different seed values and random number generators should yield similar experimental results for 
+fairly large values of m and n like those used in this assignment.
+
+<br><br>
+
+<b>Submission</b>
+<br><br>
+
+Email your program to keitaro.yukawa@gmail.com with the subject header:
+
+<br><br>
+
+CS 323 (or CS 700), Assignment 1, your full name
+
+<br><br>
+
+The due date is 02/22/19, Friday, 11:00 PM.
+No late assignments will be accepted.
+If you haven't been able to complete the program, you may send an incomplete program for partial credit.
+In this case, include a description of what is and is not working in your program along with what you
+believe to be the sources of the problems.
+
+</body>
+</html>
