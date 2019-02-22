@@ -4,60 +4,40 @@ import java.util.TreeMap;
 
 class Assignment1 {
     public static void main(String[] args) {
-        // part2 experiment 1, h(k) = k mod m
-        System.out.println("----- part2 Experiment 1 -----\n");
+        // part2a h(k) = k mod m
+        System.out.println("----- part2a -----\n");
         part2(800000, 1);
-        System.out.println();
         part2(1000000, 1);
-        System.out.println();
         part2(2000000, 1);
-        System.out.println();
         part2(3000000, 1);
-        System.out.println();
 
-        // part2 experiment 2 h(k) = f(k, m) = ⌊m(kA mod 1)⌋
-        System.out.println("----- part2 Experiment 2 -----\n");
+        // part2b h(k) = f(k, m) = ⌊m(kA mod 1)⌋
+        System.out.println("----- part2b -----\n");
         part2(800000, 2);
-        System.out.println();
         part2(1000000, 2);
-        System.out.println();
         part2(2000000, 2);
-        System.out.println();
         part2(3000000, 2);
-        System.out.println();
 
         // part3a linear probing
         System.out.println("----- part3a linear probing -----\n");
-        // part3(500000, 1);
-        // System.out.println();
-        // part3(800000, 1);
-        // System.out.println();
-        // part3(1000000, 1);
-        // System.out.println();
-        // part3(1048575, 1);
-        // System.out.println();
+        part3(500000, 1);
+        part3(800000, 1);
+        part3(1000000, 1);
+        part3(1048575, 1);
 
         // part3b quadratic probing
         System.out.println("----- part3b quadratic probing -----\n");
-        // part3(500000, 2);
-        // System.out.println();
-        // part3(800000, 2);
-        // System.out.println();
-        // part3(1000000, 2);
-        // System.out.println();
-        // part3(1048575, 2);
-        // System.out.println();
+        part3(500000, 2);
+        part3(800000, 2);
+        part3(1000000, 2);
+        part3(1048575, 2);
 
         // part3c double hashing
         System.out.println("----- part3c double hashing -----\n");
-        // part3(500000, 3);
-        // System.out.println();
-        // part3(800000, 3);
-        // System.out.println();
-        // part3(1000000, 3);
-        // System.out.println();
-        // part3(1048575, 3);
-        // System.out.println();
+        part3(500000, 3);
+        part3(800000, 3);
+        part3(1000000, 3);
+        part3(1048575, 3);
     }
 
     // LCG pseudo random nubmer generator
@@ -113,11 +93,11 @@ class Assignment1 {
             int bucket = 0;
             switch (exp) {
                 case 1:
-                    // for experiment 1 use h(k) = k mod m
+                    // for part2a use h(k) = k mod m
                     bucket = (int) h(keyValue, m);
                     break;
                 case 2:
-                    // for experiment 2 use h(k) = f(k, m) = ⌊m(kA mod 1)⌋
+                    // for part2b use h(k) = f(k, m) = ⌊m(kA mod 1)⌋
                     bucket = (int) f(keyValue, m);
                     break;
             }
@@ -141,7 +121,7 @@ class Assignment1 {
 
         System.out.println("Total # of bucket: " + m);
         System.out.println("# of elements inserted: " + n);
-        System.out.println("\nDistribution of bucket sizes:\n");
+        System.out.println("\nDistribution of bucket sizes:");
 
         /*
         print each bucket and it's size, which is already sorted by the treemap.
@@ -153,9 +133,8 @@ class Assignment1 {
 
         double sd = calculateStandardDeviation(hashTable);
         double lf = (double) n / m;
-
         System.out.println("\nLoad factor: " + lf);
-        System.out.println("Standard deviation: " + sd);
+        System.out.println("Standard deviation: " + sd + "\n");
     }
 
     // linear probing sequence
@@ -182,7 +161,6 @@ class Assignment1 {
         for (int i = 0; i < n; i++) {
             long offset = ((long) i*(i+1))/2;
             int probePosition = (int) h((hash1 + offset), m);
-            // System.out.println(hash1 + " " + i + " " + offset + " " + probePosition); // 623004 46341 -1073716337 -400085
             if (ht[probePosition] == 0) {
                 ht[probePosition] += 1; // if position is empty, insert key value
                 probes += i + 1; // count how many probes performed for this insertion of key value
@@ -225,12 +203,15 @@ class Assignment1 {
             long keyValue = pseudoRandom(seed);
             switch (exp) {
             case 1:
+                // for part3a use linear probing sequence
                 totalProbes += linearProbe(hashTable, keyValue, n, m);
                 break;
             case 2:
+                // for part3b use quadratic probing sequence
                 totalProbes += quadraticProbe(hashTable, keyValue, n, m);
                 break;
             case 3:
+                // for part3c use double hashing sequence
                 totalProbes += doubleHashingProbe(hashTable, keyValue, n, m);
                 break;
             }
@@ -329,6 +310,6 @@ class Assignment1 {
         }
         System.out.println("\nTotal # of empty clusters: " + totalEmptyClusters);
         double avgEmptySize = (double) sumOfEmptyClusterSizes / totalEmptyClusters;
-        System.out.println("Average empty cluster size: " + avgEmptySize);
+        System.out.println("Average empty cluster size: " + avgEmptySize + "\n");
     }
 }

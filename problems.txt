@@ -1,0 +1,9 @@
+I encountered a few minor problems, which I could not pin point the cause.
+
+Part2:
+- last few decimal digits of standard deviation is off compared to sample output.
+
+part3: 
+- Run time is slow, entire run for all calculations is about 18 minutes on my laptop, not sure how it can be impoved.
+- Compared to sample output, the total number of clusters found are off by one, but the total number of empty clusters matches the sample output correctly. 
+- I wasn't able to figure out how to calculate standard deviation for the clusters sizes.
